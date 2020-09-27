@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!--使用dubbo发布服务的时候，默认服务提供的端口是20880，如果已经被使用就在提供一个-->
+    <dubbo:protocol name="dubbo" port="20881"/>
+    <!--告诉dubbo 我们应用的名字叫什么-->
+    <dubbo:application name="dongyimai_sellergoods_service"/>
+    <!--配置注册中心zookeeper的地址-->
+    <dubbo:registry address="zookeeper://192.168.188.128:2181"/>
+    <!--dubbo扫描 提供的服务-->
+    <dubbo:annotation package="com.offcn.sellergoods.service.impl"/>
+</beans>

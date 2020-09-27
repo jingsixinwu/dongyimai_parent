@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 加载配置文件 -->
+    <context:property-placeholder location="classpath*:properties/*.properties" />
+  <!--  &lt;!&ndash;使用dubbo发布服务的时候，默认服务提供的端口是20880，如果已经被使用就在提供一个&ndash;&gt;
+    <dubbo:protocol name="dubbo" port="20883"/>
+    &lt;!&ndash;告诉dubbo 我们应用的名字叫什么&ndash;&gt;
+    <dubbo:application name="dongyimai_search_service"/>
+    &lt;!&ndash;配置注册中心zookeeper的地址&ndash;&gt;
+    <dubbo:registry address="zookeeper://192.168.188.128:2181"/>
+    &lt;!&ndash;dubbo扫描 提供的服务&ndash;&gt;
+    <dubbo:annotation package="com.offcn.search.service.impl"/>-->
+</beans>

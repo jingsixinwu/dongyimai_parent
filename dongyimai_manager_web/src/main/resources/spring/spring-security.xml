@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--配置不需要进行验证的资源-->
+    <http pattern="/favicon.ico" security="none"/>
+    <http pattern="/login.html" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/img/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/plugins/**" security="none"/>
+    <!--配置拦截规则-->
+    <http use-expressions="false">
+        <!--配置什么样的资源需要配置符合要求才可以访问
+              /*  代表访问当前目录中的资源需要 验证
+              /**  代表访问当前目录以及子目录 孙子目录等  都需要验证
+              access: 配置那些用户可以访问
+            -->
+        <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_STU"/>
+
+        <!--spring security 内部提供了一个登录的页面,当验证不通过的时候，要到 登录页面去
+               default-target-url  登录成功后默认访问的页面
+
+            -->
+        <form-login login-page="/login.html" default-target-url="/admin/index.html"
+                    always-use-default-target="true"/>
+        <!--关闭跨站攻击验证-->
+        <csrf disabled="true"/>
+
+        <!--配置框架同源-->
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+
+        </headers>
+
+
+        <!--配置注销-->
+        <logout logout-success-url="/login.html" ></logout>
+
+
+    </http>
+
+    <!--认证管理器-->
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <!--配置一个用户，以及该用户对应的角色-->
+                <user name="admin" password="123" authorities="ROLE_ADMIN"/>
+                <user name="test1" password="123" authorities="ROLE_ADMIN"/>
+                <user name="test2" password="123" authorities="ROLE_ADMIN"/>
+                <user name="test3" password="123" authorities="ROLE_STU"/>
+
+
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

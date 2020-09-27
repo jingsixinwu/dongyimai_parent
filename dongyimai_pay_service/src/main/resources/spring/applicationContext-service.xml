@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--加载支付配置文件 -->
+    <context:property-placeholder location="classpath*:properties/*.properties"/>
+    <!--阿里支付的客户端-->
+
+    <bean id="alipayClient" class="com.alipay.api.DefaultAlipayClient">
+        <constructor-arg name="serverUrl" value="${serverUrl}"/>
+        <constructor-arg name="appId" value="${appId}"/>
+        <constructor-arg name="privateKey" value="${privateKey}"/>
+        <constructor-arg name="format" value="${format}"/>
+        <constructor-arg name="charset" value="${charset}"/>
+        <constructor-arg name="alipayPublicKey" value="${alipayPulicKey}"/>
+        <constructor-arg name="signType" value="${signType}"/>
+    </bean>
+
+
+
+    <!--使用dubbo发布服务的时候，默认服务提供的端口是20880，如果已经被使用就在提供一个-->
+    <dubbo:protocol name="dubbo" port="20890"/>
+    <!--告诉dubbo 我们应用的名字叫什么-->
+    <dubbo:application name="dongyimai_pay_service"/>
+    <!--配置注册中心zookeeper的地址-->
+    <dubbo:registry address="zookeeper://192.168.188.128:2181"/>
+    <!--dubbo扫描 提供的服务-->
+    <dubbo:annotation package="com.offcn.pay.service.impl"/>
+
+
+</beans>

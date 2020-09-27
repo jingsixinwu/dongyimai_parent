@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--配置redis链接信息-->
+      <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+          <!--最大等待时间-->
+           <property name="maxWaitMillis" value="${redis.maxWait}"></property>
+          <!--最大空闲链接数量-->
+          <property name="maxIdle" value="${redis.maxIdle}"></property>
+          <!--最大连接总数-->
+          <property name="maxTotal" value="${redis.maxTotal}"></property>
+          <!--是否测试redis状态-->
+          <property name="testOnBorrow" value="${redis.testOnBorrow}"></property>
+     </bean>
+
+    <!--配置redis工厂-->
+
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"></property>
+        <property name="port" value="${redis.port}"></property>
+        <property name="password" value="${redis.pass}"></property>
+        <property name="database" value="${redis.database}"></property>
+        <property name="poolConfig" ref="poolConfig"></property>
+   </bean>
+
+    <!--配置操作模板-->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+         <property name="connectionFactory" ref="jedisConnectionFactory"></property>
+    </bean>
+
+</beans>

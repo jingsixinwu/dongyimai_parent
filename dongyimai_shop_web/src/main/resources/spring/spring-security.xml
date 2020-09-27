@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+              http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+                  http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <!--配置不需要进行验证的资源-->
+    <http pattern="/favicon.ico" security="none"/>
+    <http pattern="/shoplogin.html" security="none"/>
+    <http pattern="/register.html" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/img/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/plugins/**" security="none"/>
+    <http pattern="/seller/add.do" security="none"/>
+
+
+
+    <!--配置拦截规则-->
+    <http use-expressions="false">
+        <!--配置什么样的资源需要配置符合要求才可以访问
+              /*  代表访问当前目录中的资源需要 验证
+              /**  代表访问当前目录以及子目录 孙子目录等  都需要验证
+              access: 配置那些用户可以访问
+            -->
+        <intercept-url pattern="/**" access="ROLE_SELLER"/>
+        <!--spring security 内部提供了一个登录的页面,当验证不通过的时候，要到 登录页面去
+               default-target-url  登录成功后默认访问的页面
+
+            -->
+        <form-login login-page="/shoplogin.html" default-target-url="/admin/index.html"
+                    always-use-default-target="true"/>
+        <!--关闭跨站攻击验证-->
+        <csrf disabled="true"/>
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+
+        </headers>
+        <logout logout-success-url="/shoplogin.html"/>
+
+    </http>
+
+    <!--认证管理器-->
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsService">
+           <password-encoder ref="bcryptEncoder"></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- 引用dubbo 服务 -->
+    <dubbo:application name="dongyimai_shop_web" />
+    <dubbo:registry address="zookeeper://192.168.188.128:2181"/>
+    <dubbo:reference id="sellerService" interface="com.offcn.sellergoods.service.SellerService"/>
+
+
+    <!--引入自定义认证类到 spring容器中-->
+    <beans:bean id="userDetailsService" class="com.offcn.service.UserDetailsServiceImpl">
+           <beans:property name="sellerService" ref="sellerService"/>
+
+    </beans:bean>
+
+    <beans:bean id="bcryptEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+</beans:beans>

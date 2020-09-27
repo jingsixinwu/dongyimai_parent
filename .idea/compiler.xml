@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="dongyimai_pay_interface" />
+        <module name="dongyimai_sellergoods_interface" />
+        <module name="dongyimai_sms_service" />
+        <module name="dongyimai_search_service" />
+        <module name="dongyimai_user_interface" />
+        <module name="dongyimai_solr_util" />
+        <module name="dongyimai_order_interface" />
+        <module name="dongyimai_content_interface" />
+        <module name="dongyimai_user_service" />
+        <module name="dongyimai_cart_interface" />
+        <module name="dongyimai_content_service" />
+        <module name="dongyimai_page_interface" />
+        <module name="dongyimai_page_service" />
+        <module name="dongyimai_common" />
+        <module name="dongyimai_search_web" />
+        <module name="dongyimai_order_web" />
+        <module name="dongyimai_sellergoods_service" />
+        <module name="dongyimai_portal_web" />
+        <module name="dongyimai_pay_service" />
+        <module name="dongyimai_page_web" />
+        <module name="dongyimai_search_interface" />
+        <module name="dongyimai_order_service" />
+        <module name="dongyimai_dao" />
+        <module name="dongyimai_cart_service" />
+        <module name="dongyimai_manager_web" />
+        <module name="dongyimai_user_web" />
+        <module name="dongyimai_pojo" />
+        <module name="dongyimai_cart_web" />
+        <module name="dongyimai_shop_web" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

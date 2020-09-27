@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_cart_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_cart_web" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_content_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_manager_web" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_order_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_order_web" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_page_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_page_web" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_pay_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_portal_web" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_search_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_search_web" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_sellergoods_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_shop_web" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_sms_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_user_service" />
+    <file type="web" url="file://$PROJECT_DIR$/dongyimai_user_web" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

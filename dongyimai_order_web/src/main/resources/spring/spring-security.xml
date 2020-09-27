@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- 配置 favicon.ico不进行安全拦截-->
+    <!-- 匿名访问资源 -->
+    <http pattern="/favicon.ico" security="none"/>
+    <http pattern="/css/**" security="none"></http>
+    <http pattern="/data/**" security="none"></http>
+    <http pattern="/fonts/**" security="none"></http>
+    <http pattern="/img/**" security="none"></http>
+    <http pattern="/js/**" security="none"></http>
+    <http pattern="/plugins/**" security="none"></http>
+
+<!--    <http pattern="/cart/*.do" security="none"></http>-->
+
+
+
+
+
+
+    <!-- 页面拦截规则 -->
+    <!--entry-point-ref 整合cas-->
+    <http use-expressions="false" entry-point-ref="casProcessingFilterEntryPoint">
+        <intercept-url pattern="/cart/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/**" access="ROLE_USER" />
+        <!--<form-login/>-->
+        <!-- custom-filter为过滤器， position 表示将过滤器放在指定的位置上，before表示放在指定位置之前  ，after表示放在指定的位置之后  -->
+        <custom-filter ref="casAuthenticationFilter"  position="CAS_FILTER" />
+        <custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
+        <custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
+
+        <csrf disabled="true"/>
+    </http>
+    <!--CAS入口点，开始-->
+    <!--创建springSecurity整合cas的入口程序-->
+    <beans:bean id="casProcessingFilterEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">
+        <!--单点登录服务器登录URL-->
+        <beans:property name="loginUrl" value="http://192.168.188.146:9100/cas/login"/>
+        <!--本地服务的访问地址-->
+        <beans:property name="serviceProperties" ref="serviceProperties"/>
+
+    </beans:bean>
+    <!--本地服务访问对象-->
+    <beans:bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">
+        <beans:property name="service" value="http://localhost:9109/login/cas"></beans:property>
+
+    </beans:bean>
+    <!-- CAS入口点 结束 -->
+
+    <!--认证过滤器  开始-->
+    <beans:bean id="casAuthenticationFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
+        <!--注入spingSecurity的认证管理器-->
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+    </beans:bean>
+
+    <!-- 认证管理器 -->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="casAuthenticationProvider">
+
+        </authentication-provider>
+    </authentication-manager>
+    <!--配置cas 认证实现-->
+    <beans:bean id="casAuthenticationProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider">
+        <!--配置SpringSecurity授权类-->
+        <beans:property name="authenticationUserDetailsService">
+            <beans:bean class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+                <beans:constructor-arg ref="userDetailsService" />
+            </beans:bean>
+        </beans:property>
+        <beans:property name="serviceProperties" ref="serviceProperties"/>
+        <!-- ticketValidator 为票据验证器 -->
+        <beans:property name="ticketValidator">
+            <beans:bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+                <beans:constructor-arg index="0" value="http://192.168.188.146:9100/cas"/>
+            </beans:bean>
+        </beans:property>
+        <beans:property name="key" value="an_id_for_this_auth_provider_only"/>
+    </beans:bean>
+    <!-- 认证类 -->
+    <beans:bean id="userDetailsService" class="com.offcn.order.service.UserDetailsServiceImpl"/>
+
+    <!-- 认证过滤器 结束 -->
+    <!-- 单点登出  开始  -->
+    <beans:bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>
+    <beans:bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <beans:constructor-arg value="http://192.168.188.146:9100/cas/logout?service=http://localhost:9103"/>
+        <beans:constructor-arg>
+            <beans:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+        </beans:constructor-arg>
+        <beans:property name="filterProcessesUrl" value="/logout/cas"/>
+    </beans:bean>
+    <!-- 单点登出  结束 -->
+
+
+</beans:beans>

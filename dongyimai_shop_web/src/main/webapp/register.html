@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>商家入驻申请</title>
+    <link rel="stylesheet" type="text/css" href="css/webbase.css" />
+    <link rel="stylesheet" type="text/css" href="css/pages-register.css" />
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js">  </script>
+	<script type="text/javascript" src="js/base.js">  </script>
+	<script type="text/javascript" src="js/service/sellerService.js">  </script>
+	<script type="text/javascript" src="js/controller/baseController.js">  </script>
+	<script type="text/javascript" src="js/controller/sellerController.js">  </script>
+</head>
+
+<body ng-app="dongyimai" ng-controller="sellerController">
+	<div class="register py-container ">
+		<!--head-->
+		<div class="logoArea">
+			<a href="" class="logo"></a>
+		</div>
+		<!--register-->
+		<div class="registerArea">
+			<h3>商家入驻申请<span class="go">我有账号，去<a href="shoplogin.html" target="_blank">登陆</a></span></h3>
+			<div class="info">
+				<form class="sui-form form-horizontal">
+
+					<div class="control-group">
+						<label class="control-label">登录名（不可修改）：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.sellerId" placeholder="登录名" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">登录密码：</label>
+						<div class="controls">
+							<input type="password" ng-model="entity.password" placeholder="登录密码" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">店铺名称：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.name" placeholder="店铺名称" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">公司名称：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.nickName" placeholder="公司名称" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">公司电话：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.telephone" placeholder="公司电话" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">公司详细地址：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.addressDetail" placeholder="公司详细地址" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">联系人姓名：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.linkmanName" placeholder="联系人姓名" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">联系人QQ：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.linkmanQq" placeholder="联系人QQ" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">联系人手机：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.linkmanMobile" placeholder="联系人手机" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">联系人EMAIL：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.linkmanEmail" placeholder="联系人EMAIL" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">营业执照号：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.licenseNumber" placeholder="营业执照号" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">税务登记证号：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.taxNumber" placeholder="税务登记证号" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">组织机构代码证：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.orgNumber" placeholder="组织机构代码证" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">法定代表人：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.legalPerson" placeholder="法定代表人" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">法定代表人身份证号：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.legalPersonCardId" placeholder="法定代表人身份证号" class="input-xfat input-xlarge">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">开户行名称：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.bankName" placeholder="开户行支行" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label">银行账号：</label>
+						<div class="controls">
+							<input type="text" ng-model="entity.bankUser" placeholder="银行账号" class="input-xfat input-xlarge">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="inputPassword" class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<div class="controls">
+							<input name="m1" type="checkbox" value="2" checked=""><span>同意协议并注册  <a href="sampling.html">《东易买商家入驻协议》</a></span>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls btn-reg">
+							<button class="sui-btn btn-block btn-xlarge btn-danger" ng-click="add()">申请入驻</button>
+						</div>
+					</div>
+				</form>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<!--foot-->
+		<div class="py-container copyright">
+			<ul>
+				<li>关于我们</li>
+				<li>联系我们</li>
+				<li>联系客服</li>
+				<li>商家入驻</li>
+				<li>营销中心</li>
+				<li>手机东易买</li>
+				<li>销售联盟</li>
+				<li>东易买社区</li>
+			</ul>
+			<div class="address">地址：北京市朝阳区五方桥基地 邮编：100086 电话：400-650-7353 传真：010-88888100</div>
+		<div class="beian">京ICP备10218183号-88 京公网安备11010802020723号
+		</div>
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
+<script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
+<script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
+<script type="text/javascript" src="js/pages/register.js"></script>
+</body>
+
+</html>
